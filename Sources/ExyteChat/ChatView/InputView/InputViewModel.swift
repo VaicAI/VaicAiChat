@@ -193,6 +193,7 @@ private extension InputViewModel {
             .compactMap { [attachments] _ in
                 DraftMessage(
                     text: attachments.text,
+                    action: nil,
                     medias: attachments.medias,
                     recording: attachments.recording,
                     replyMessage: attachments.replyMessage,

@@ -8,6 +8,7 @@ import ExyteMediaPicker
 public struct DraftMessage {
     public var id: String?
     public let text: String
+    public let action: String?
     public let medias: [Media]
     public let recording: Recording?
     public let replyMessage: ReplyMessage?

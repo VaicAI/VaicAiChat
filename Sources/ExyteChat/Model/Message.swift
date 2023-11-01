@@ -43,13 +43,14 @@ public struct Message: Identifiable, Hashable {
             }
         }
     }
-
-    public var id: String
+    
+    public var id: String // will stand for VRI in out context
     public var user: User
     public var status: Status?
-    public var createdAt: Date
+    public var createdAt: Date // will be set to timestamp
 
     public var text: String
+    public var action: String?
     public var attachments: [Attachment]
     public var recording: Recording?
     public var replyMessage: ReplyMessage?
@@ -59,6 +60,7 @@ public struct Message: Identifiable, Hashable {
                 status: Status? = nil,
                 createdAt: Date = Date(),
                 text: String = "",
+                action: String? = nil ,
                 attachments: [Attachment] = [],
                 recording: Recording? = nil,
                 replyMessage: ReplyMessage? = nil) {
@@ -68,6 +70,7 @@ public struct Message: Identifiable, Hashable {
         self.status = status
         self.createdAt = createdAt
         self.text = text
+        self.action = action
         self.attachments = attachments
         self.recording = recording
         self.replyMessage = replyMessage
@@ -94,7 +97,15 @@ public struct Message: Identifiable, Hashable {
                 }
             }
 
-            return Message(id: id, user: user, status: status, createdAt: draft.createdAt, text: draft.text, attachments: attachments, recording: draft.recording, replyMessage: draft.replyMessage)
+            return Message(id: id,
+                           user: user,
+                           status: status,
+                           createdAt: draft.createdAt,
+                           text: draft.text,
+                           action: draft.action,
+                           attachments: attachments,
+                           recording: draft.recording,
+                           replyMessage: draft.replyMessage)
         }
 }
 
