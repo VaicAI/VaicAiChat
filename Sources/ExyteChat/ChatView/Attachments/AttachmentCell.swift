@@ -24,7 +24,7 @@ struct AttachmentCell: View {
                             .frame(width: 36, height: 36)
                     }
             } else if attachment.type == .action {
-                Text("Show Booked Trips Here")
+                AdriView()
             }
         }
         .contentShape(Rectangle())
@@ -35,6 +35,17 @@ struct AttachmentCell: View {
 
     var content: some View {
         AsyncImageView(url: attachment.thumbnail)
+    }
+}
+
+struct AdriView: View {
+    var body: some View {
+        VStack {
+            Text("Hey, Action here")
+                .background(.gray)
+                .frame(width: 300, height: 300)
+                .padding()
+        }.padding()
     }
 }
 
