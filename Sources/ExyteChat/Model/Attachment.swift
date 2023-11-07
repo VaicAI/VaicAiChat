@@ -8,13 +8,16 @@ import ExyteMediaPicker
 public enum AttachmentType: String, Codable {
     case image
     case video
+    case action
 
     public var title: String {
         switch self {
         case .image:
             return "Image"
-        default:
+        case .video:
             return "Video"
+        default:
+            return ""
         }
     }
 
@@ -22,8 +25,10 @@ public enum AttachmentType: String, Codable {
         switch mediaType {
         case .image:
             self = .image
-        default:
+        case .video:
             self = .video
+        default:
+            self = .action
         }
     }
 }

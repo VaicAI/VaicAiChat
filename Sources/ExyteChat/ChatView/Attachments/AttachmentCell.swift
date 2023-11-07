@@ -23,11 +23,8 @@ struct AttachmentCell: View {
                             .foregroundColor(.white)
                             .frame(width: 36, height: 36)
                     }
-            } else {
-                content
-                    .overlay {
-                        Text("Unknown")
-                    }
+            } else if attachment.type == .action {
+                Text("Show Booked Trips Here")
             }
         }
         .contentShape(Rectangle())
