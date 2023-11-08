@@ -90,7 +90,14 @@ struct MessageView: View {
                                 .frame(width: 2)
                         }
                 }
-                bubbleView(message)
+                if let action = message.action {
+                    if action.isEmpty {
+                        bubbleView(message)
+                    } else {
+                        bubbleView(message)
+                        actionView(message)
+                    }
+                }
             }
 
             if message.user.isCurrentUser, let status = message.status {
@@ -129,6 +136,40 @@ struct MessageView: View {
             }
         }
         .bubbleBackground(message, theme: theme)
+    }
+    
+//    ScrollView(.horizontal, showsIndicators: false) {
+//        HStack(spacing: 10) {
+//            ForEach(0..<5) { index in
+//                CardView()
+//                    .frame(width: 100, height: 100)
+//                    .shadow(radius: 5)
+//            }
+//        }
+//        .padding()
+
+    
+    @ViewBuilder
+    func actionView(_ message: Message) -> some View {
+        VStack(spacing: 8.0) {
+            if let action = message.action {
+                if !action.isEmpty {
+//                    messageTimeView()
+//                        .padding(.bottom, 8)
+//                        .padding(.trailing, 12)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            ForEach(0..<5) { index in
+                                CardView()
+                                    .frame(width: 100, height: 100)
+                                    .shadow(radius: 8)
+                            }
+                        }
+                        .padding()
+                    }
+                }
+            }
+        }.bubbleBackground(message, theme: theme)
     }
 
     @ViewBuilder
@@ -292,12 +333,13 @@ struct MessageView_Preview: PreviewProvider {
         user: stan,
         status: .read,
         text: longMessage,
+        action: "action",
         attachments: [
-            Attachment.randomImage(),
-            Attachment.randomImage(),
-            Attachment.randomImage(),
-            Attachment.randomImage(),
-            Attachment.randomImage(),
+//            Attachment.randomImage(),
+//            Attachment.randomImage(),
+//            Attachment.randomImage(),
+//            Attachment.randomImage(),
+//            Attachment.randomImage(),
         ]
     )
 
@@ -326,3 +368,21 @@ struct MessageView_Preview: PreviewProvider {
     }
 }
 #endif
+
+
+
+// JUST TESTING
+struct CardView: View {
+    var body: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .foregroundColor(.blue)
+            .overlay(
+                Button {
+                    print("hit me im an action")
+                } label: {
+                    Text("I'm an Action")
+                        .font(.footnote)
+                }
+            )
+    }
+}
